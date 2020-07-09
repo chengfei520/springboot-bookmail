@@ -30,22 +30,6 @@ public class UserController {
             return "redirect:/login_success.html";
         }
     }
-//    @Autowired
-//    UserMapper userMapper;
-//    @GetMapping("/user/login")
-//    public String login(@RequestParam("username") String username,
-//                        @RequestParam("password") String password,
-//    Map<String,Object>map, HttpSession session){
-//        User user=userMapper.queryUserByUsernameAndPassword(username,password);
-//        if(user==null){
-//            map.put("msg","用户名或密码错误！");
-//            map.put("username",username);
-//            return "forward:/login.html";
-//        }else {
-//            session.setAttribute("loginUser", username);
-//            //重定向防止重复提交
-//            return "redirect:/login_success.html";
-//        }
-//    }
+
 
 }
