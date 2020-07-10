@@ -15,4 +15,17 @@ public class UserServiceImpl implements UserService {
     public User login(User user){
         return userMapper.queryUserByUsernameAndPassword(user.getUsername(),user.getPassword());
     }
+
+    @Override
+    public void registUser(User user) {
+        userMapper.saveUser(user);
+    }
+
+    @Override
+    public boolean existsUsername(String username) {
+        if(userMapper.queryUserByUsername(username)!=null){
+            return true;
+        }
+        return false;
+    }
 }

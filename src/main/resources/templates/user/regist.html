@@ -83,14 +83,32 @@
 					});
 					$("#username").blur(function () {
 						var name=this.value;
-						$.getJSON("http://localhost:8080/book/userServlet","action=ajaxExistUsername&username="+name,function (a) {
-							if(a.existUsername) {
-								$("span.errorMsg").text("用户名已存在！");
-							}else {
-								$("span.errorMsg").text("用户名可用！");
+						// $.getJSON("http://localhost:8080/bookmail/user/userjudge","username="+name,function (a) {
+						// 	if(a.existUser) {
+						// 		$("span.errorMsg").text("用户名已存在！");
+						// 	}else {
+						// 		$("span.errorMsg").text("用户名可用！");
+						// 	}
+						// })
+						$.ajax({
+							type : "get",
+							url : "http://localhost:8080/bookmail/user/userjudge",
+							headers : {
+								'Content-Type' : 'application/x-www-form-urlencoded;charset=UTF-8'
+							},
+							dataType : "json",
+							data :{
+								"username" : name
+							},
+							success : function(result){
+								if(result.existUser!=null) {
+									$("span.errorMsg").text("用户名已存在！");
+								}else {
+									$("span.errorMsg").text("用户名可用！");
+								}
 							}
-						})
-				});
+						});
+					});
 
 			});
 
@@ -123,7 +141,7 @@
 								<span class="errorMsg"></span>
 							</div>
 							<div class="form">
-								<form  th:action="@{/regist}" method="post">
+								<form  th:action="@{/user/regist}" method="post">
 									<label>用户名称：</label>
 									<input class="itxt" type="text" placeholder="请输入用户名"
 										   autocomplete="off" tabindex="1" name="username" id="username" />

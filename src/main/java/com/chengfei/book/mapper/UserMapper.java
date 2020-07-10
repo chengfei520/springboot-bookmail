@@ -7,4 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     public User queryUserByUsernameAndPassword(String username,String password);
     public User queryUserByUsername(String username);
+    public int saveUser(User user);
 }

@@ -9,7 +9,10 @@
     <select id="queryUserByUsernameAndPassword" resultType="com.chengfei.book.pojo.User">
         SELECT * FROM t_user WHERE username=#{username} and password=#{password}
     </select>
-    <!--<insert id="insertEmp">-->
-        <!--INSERT INTO employee(lastName,email,gender,d_id) VALUES (#{lastName},#{email},#{gender},#{dId})-->
-    <!--</insert>-->
+    <select id="queryUserByUsername" resultType="com.chengfei.book.pojo.User">
+        SELECT * FROM t_user WHERE username=#{username}
+    </select>
+    <insert id="saveUser">
+        INSERT INTO t_user (username,password,email) VALUES (#{username},#{password},#{email})
+    </insert>
 </mapper>
