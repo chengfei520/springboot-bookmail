@@ -78,8 +78,9 @@
 					$("span.errorMsg").text("");
 				});
 			     //给验证码的图片绑定单击事件,参数d是为了防止浏览器（火狐，IE）缓存每次都获取同一个验证码图片
-					$("#code_img").click(function () {
-						this.src="${basePath}kaptcha.jpg?d="+new Date();
+					$("#kaptcha").click(function () {
+						var path = getRootPath() + "/kaptcha?p=" + Math.random();
+						$("#kaptcha").attr("src", path);
 					});
 					$("#username").blur(function () {
 						var name=this.value;
@@ -138,33 +139,34 @@
 						<div class="login_box">
 							<div class="tit">
 								<h1>注册商城会员</h1>
-								<span class="errorMsg"></span>
+								<span class="errorMsg" th:if="${#strings.isEmpty(msg)}"></span>
+								<span class="errorMsg" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></span>
 							</div>
 							<div class="form">
-								<form  th:action="@{/user/regist}" method="post">
+								<form  th:action="@{/user/regist}" method="get">
 									<label>用户名称：</label>
 									<input class="itxt" type="text" placeholder="请输入用户名"
-										   autocomplete="off" tabindex="1" name="username" id="username" />
+										   autocomplete="off" tabindex="1" name="username" id="username" th:value="${username}"/>
 									<br />
 									<br />
 									<label>用户密码：</label>
 									<input class="itxt" type="password" placeholder="请输入密码"
-										   autocomplete="off" tabindex="1" name="password" id="password" />
+										   autocomplete="off" tabindex="1" name="password" id="password" th:value="${password}"/>
 									<br />
 									<br />
 									<label>确认密码：</label>
 									<input class="itxt" type="password" placeholder="确认密码"
-										   autocomplete="off" tabindex="1" name="repwd" id="repwd" />
+										   autocomplete="off" tabindex="1" name="repwd" id="repwd" th:value="${password}"/>
 									<br />
 									<br />
 									<label>电子邮件：</label>
 									<input class="itxt" type="text" placeholder="请输入邮箱地址"
-										   autocomplete="off" tabindex="1" name="email" id="email" />
+										   autocomplete="off" tabindex="1" name="email" id="email" th:value="${email}"/>
 									<br />
 									<br />
 									<label>验证码：</label>
-									<input class="itxt" type="text" style="width: 150px;" id="code"/>
-									<img alt="" src="" style="float: right; margin-right: 40px">
+									<input class="itxt" type="text" style="width: 150px;" id="code" name="code"/>
+									<img th:src="@{/kaptcha}" id="kaptcha" style="width:100px;height:40px;" class="mr-2">
 									<br />
 									<br />
 									<input type="submit" value="注册" id="sub_btn" />

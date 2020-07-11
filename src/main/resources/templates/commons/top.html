@@ -9,6 +9,18 @@
 <link type="text/css" rel="stylesheet" href="../../static/css/style.css"
       th:href="@{/css/style.css}" >
 <script type="text/javascript" th:src="@{/script/jquery-1.7.2.js}"></script>
+    <!--动态获取当前的工程路径-->
+    <script type="text/javascript" th:src="@{/script/rootpath.js}"></script>
+</div>
+<div id="header" th:fragment="header">
+    <img class="logo_img" alt="" style="height:200px;width:200px "
+         th:src="@{/img/musicLogo.jpg}" >
+    <div>
+        <span>欢迎<span class="um_span">[[${session.loginUser}]]</span>光临本商城</span>
+        <a th:href="@{/order.html}">我的订单</a>
+        <a th:href="@{/login.html}">注销</a>&nbsp;&nbsp;
+        <!--<a th:href="@{}">返回</a>-->
+    </div>
 </div>
 </body>
 </html>
