@@ -3,18 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>图书管理</title>
-<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
+	<div th:replace="commons/top::top"></div>
+	<script type="text/javascript">
+		$(function () {
+			$("a.deleteClass").click(function () {
+				if(confirm("你确定要删除【"+$(this).parent().parent().find("td:first").text()+"】")){
+					$("#deleteEmpForm").attr("action",$(this).attr("del_uri")).submit();
+					//return false;
+				}else {
+					return false;
+				}
+			})
+		});
+	</script>
 </head>
 <body>
 	
 	<div id="header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+		<img class="logo_img" alt="" style="height:100px;width:100px "
+			 th:src="@{/img/musicLogo.jpg}" >
 			<span class="wel_word">图书管理系统</span>
-			<div>
-				<a href="book_manager.html">图书管理</a>
-				<a href="order_manager.html">订单管理</a>
-				<a href="../../index.html">返回商城</a>
-			</div>
+		<div th:replace="commons/top::order"></div>
 	</div>
 	
 	<div id="main">
@@ -26,47 +35,17 @@
 				<td>销量</td>
 				<td>库存</td>
 				<td colspan="2">操作</td>
-			</tr>		
-			<tr>
-				<td>时间简史</td>
-				<td>20.00</td>
-				<td>霍金</td>
-				<td>200</td>
-				<td>400</td>
-				<td><a href="book_edit.html">修改</a></td>
-				<td><a href="#">删除</a></td>
-			</tr>	
-			
-			<tr>
-				<td>时间简史</td>
-				<td>20.00</td>
-				<td>霍金</td>
-				<td>200</td>
-				<td>400</td>
-				<td><a href="book_edit.html">修改</a></td>
-				<td><a href="#">删除</a></td>
-			</tr>	
-			
-			<tr>
-				<td>时间简史</td>
-				<td>20.00</td>
-				<td>霍金</td>
-				<td>200</td>
-				<td>400</td>
-				<td><a href="book_edit.html">修改</a></td>
-				<td><a href="#">删除</a></td>
-			</tr>	
-			
-			<tr>
-				<td>时间简史</td>
-				<td>20.00</td>
-				<td>霍金</td>
-				<td>200</td>
-				<td>400</td>
-				<td><a href="book_edit.html">修改</a></td>
-				<td><a href="#">删除</a></td>
-			</tr>	
-			
+			</tr>
+            <tr th:each="book:${books}">
+                <td th:text="${book.name}"></td>
+                <td th:text="${book.price}"></td>
+                <td th:text="${book.author}"></td>
+                <td th:text="${book.sales}"></td>
+                <td th:text="${book.stock}"></td>
+                <td><a th:href="@{/manager/book/}+${book.id}">修改</a></td>
+				<!--自定义一个属性，因为不能直接将此uri传递给mapper-->
+                <td><a class="deleteClass" th:attr="del_uri=@{/manager/book/}+${book.id}">删除</a></td>
+            </tr>
 			<tr>
 				<td></td>
 				<td></td>
@@ -74,15 +53,15 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><a href="book_edit.html">添加图书</a></td>
-			</tr>	
+				<td><a th:href="@{/book_edit.html}">添加图书</a></td>
+			</tr>
 		</table>
+		<!--用来实现delete请求的必要form-->
+		<form id="deleteEmpForm" method="post">
+			<input type="hidden" name="_method" value="delete">
+		</form>
 	</div>
-	
-	<div id="bottom">
-		<span>
-			尚硅谷书城.Copyright &copy;2015
-		</span>
-	</div>
+
+	<div th:replace="commons/footer::bottom"></div>
 </body>
 </html>

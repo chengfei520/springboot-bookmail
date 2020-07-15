@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>编辑图书</title>
-<link type="text/css" rel="stylesheet" href="../../static/css/style.css" >
+	<div th:replace="commons/top::top"></div>
 <style type="text/css">
 	h1 {
 		text-align: center;
@@ -21,17 +21,17 @@
 </head>
 <body>
 		<div id="header">
-			<img class="logo_img" alt="" src="../../static/img/logo.gif" >
+			<img class="logo_img" alt="" style="height:100px;width:100px "
+				 th:src="@{/img/musicLogo.jpg}" >
 			<span class="wel_word">编辑图书</span>
-			<div>
-				<a href="book_manager.html">图书管理</a>
-				<a href="order_manager.html">订单管理</a>
-				<a href="../../index.html">返回商城</a>
-			</div>
+			<div th:replace="commons/top::order"></div>
 		</div>
 		
 		<div id="main">
-			<form action="book_manager.html">
+			<form th:action="@{/manager/book}" method="post">
+				<!--如果model中的book不为null，就是使用put方式提交，对应修改操作;否则对应添加操作-->
+				<input type="hidden" name="_method" value="put" th:if="${book!=null}">
+				<input type="hidden" name="id" th:if="${book!=null}" th:value="${book.id}">
 				<table>
 					<tr>
 						<td>名称</td>
@@ -40,25 +40,29 @@
 						<td>销量</td>
 						<td>库存</td>
 						<td colspan="2">操作</td>
-					</tr>		
-					<tr>
-						<td><input name="book_name" type="text" value="时间简史"/></td>
-						<td><input name="book_price" type="text" value="30.00"/></td>
-						<td><input name="book_author" type="text" value="霍金"/></td>
-						<td><input name="book_sales" type="text" value="200"/></td>
-						<td><input name="book_stock" type="text" value="300"/></td>
+					</tr>
+					<tr th:if="${book!=null}">
+						<td><input name="name" type="text" th:value="${book.name}"/></td>
+						<td><input name="price" type="text" th:value="${book.price}"/></td>
+						<td><input name="author" type="text" th:value="${book.author}"/></td>
+						<td><input name="sales" type="text" th:value="${book.sales}"/></td>
+						<td><input name="stock" type="text" th:value="${book.stock}"/></td>
 						<td><input type="submit" value="提交"/></td>
-					</tr>	
+					</tr>
+					<tr th:if="${book==null}">
+						<td><input name="name" type="text" /></td>
+						<td><input name="price" type="text" /></td>
+						<td><input name="author" type="text" /></td>
+						<td><input name="sales" type="text" /></td>
+						<td><input name="stock" type="text" /></td>
+						<td><input type="submit" value="提交"/></td>
+					</tr>
 				</table>
 			</form>
 			
 	
 		</div>
-		
-		<div id="bottom">
-			<span>
-				尚硅谷书城.Copyright &copy;2015
-			</span>
-		</div>
+
+		<div th:replace="commons/footer::bottom"></div>
 </body>
 </html>
