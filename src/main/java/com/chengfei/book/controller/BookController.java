@@ -1,6 +1,7 @@
 package com.chengfei.book.controller;
 
 import com.chengfei.book.pojo.Book;
+import com.chengfei.book.pojo.Page;
 import com.chengfei.book.service.BookService;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
@@ -93,4 +94,12 @@ public class BookController {
         bookService.saveBook(new Book(null,name,author,price,sales,stock,null));
         return "redirect:/manager/book_manager";
     }
+    @GetMapping("/manager/book_page")
+    public String page(@RequestParam("pageNo") Integer pageNo,
+                       @RequestParam("pageSize") Integer pageSize,Model model){
+        Page<Book> page=bookService.page(pageNo,pageSize);
+        model.addAttribute("page",page);
+        return "forward:/book_manager.html";
+    }
+
 }

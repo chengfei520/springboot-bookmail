@@ -36,7 +36,7 @@
 				<td>库存</td>
 				<td colspan="2">操作</td>
 			</tr>
-            <tr th:each="book:${books}">
+            <tr th:each="book:${page.items}">
                 <td th:text="${book.name}"></td>
                 <td th:text="${book.price}"></td>
                 <td th:text="${book.author}"></td>

@@ -12,4 +12,8 @@ public interface BookMapper {
     public Book queryBookById(Integer id);
     public void updateBook(Book book);
     public void saveBook(Book book );
+
+    public Integer queryForPageTotalCount();
+
+    public List<Book> queryForPageItems(Integer begin, Integer pageSize);
 }

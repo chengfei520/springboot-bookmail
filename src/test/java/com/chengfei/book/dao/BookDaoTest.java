@@ -21,4 +21,12 @@ class BookDaoTest {
     void deleteBook(){
         bookMapper.deleteBookById(20);
     }
+    @Test
+    void queryBookCount(){
+        System.out.println(bookMapper.queryForPageTotalCount());
+    }
+    @Test
+    void queryPageBookItems(){
+        System.out.println(bookMapper.queryForPageItems(4,4));
+    }
 }

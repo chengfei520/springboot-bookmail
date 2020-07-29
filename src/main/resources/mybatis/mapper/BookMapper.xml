@@ -30,4 +30,10 @@
     <insert id="saveBook">
         INSERT INTO t_book (name,author,price,sales,stock) VALUES (#{name},#{author},#{price},#{sales},#{stock})
     </insert>
+    <select id="queryForPageTotalCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM t_book
+    </select>
+    <select id="queryForPageItems" resultType="com.chengfei.book.pojo.Book">
+        SELECT id,name,author,price,sales,stock,img_path FROM t_book LIMIT #{begin},#{pageSize}
+    </select>
 </mapper>
