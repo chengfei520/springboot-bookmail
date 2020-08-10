@@ -29,4 +29,12 @@ class BookDaoTest {
     void queryPageBookItems(){
         System.out.println(bookMapper.queryForPageItems(4,4));
     }
+    @Test
+    void queryBookCountByPrice(){
+        System.out.println(bookMapper.queryForPageTotalCountByPrice(0,40));
+    }
+    @Test
+    void queryBookItemsByPrice(){
+        System.out.println(bookMapper.queryForPageItemsByPrice(0,40,1,4));
+    }
 }

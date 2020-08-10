@@ -94,12 +94,47 @@ public class BookController {
         bookService.saveBook(new Book(null,name,author,price,sales,stock,null));
         return "redirect:/manager/book_manager";
     }
+
+    /**
+     * 图书分页
+     * @param pageNo
+     * @param pageSize
+     * @param model
+     * @return
+     */
     @GetMapping("/manager/book_page")
     public String page(@RequestParam("pageNo") Integer pageNo,
                        @RequestParam("pageSize") Integer pageSize,Model model){
         Page<Book> page=bookService.page(pageNo,pageSize);
         model.addAttribute("page",page);
         return "forward:/book_manager.html";
+    }
+
+    /**
+     * 主页商品的分页显示
+     * @param pageNo
+     * @param pageSize
+     * @param model
+     * @return
+     */
+    @GetMapping("/index")
+    public String pageIndex(@RequestParam("pageNo") Integer pageNo,
+                       @RequestParam("pageSize") Integer pageSize,Model model){
+           Page<Book> page = bookService.page(pageNo, pageSize);
+           page.setUrl("/index?");
+           model.addAttribute("page", page);
+        return "forward:/index.html";
+    }
+    @GetMapping("/indexPrice")
+    public String pageIndexByPrice(@RequestParam("pageNo") Integer pageNo,
+                            @RequestParam("pageSize") Integer pageSize,@RequestParam("min") Integer min,
+                                   @RequestParam("max") Integer max,Model model){
+            Page<Book> page = bookService.pageByPrice(pageNo, pageSize,min,max);
+            page.setUrl("/indexPrice?min="+min+"&max="+max+"&");
+            model.addAttribute("page", page);
+            model.addAttribute("min",min);
+            model.addAttribute("max",max);
+        return "forward:/index.html";
     }
 
 }

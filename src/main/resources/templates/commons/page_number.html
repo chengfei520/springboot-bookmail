@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="page_nav" th:fragment="page_number">
+    <div th:if="${page.pageTotal<=5}">
+        <span th:if="${page.pageNo>1}">
+            <a  th:href="@{/manager/book_page}+'?pageNo=1&pageSize=4'">首页</a>
+            <a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo-1}+'&pageSize=4'">上一页</a>
+        </span>
+        <span th:each="pageNo:${#numbers.sequence(1,page.pageTotal)}">
+            <a th:if="${pageNo}!=${page.pageNo}" th:text="${pageNo}" th:href="@{/manager/book_page}+'?pageNo='+${pageNo}+'&pageSize=4'"></a>
+            <span th:if="${pageNo}==${page.pageNo}" th:text="${pageNo}"></span>
+        </span>
+        <span th:if="${page.pageNo}<${page.pageTotal}">
+            <a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo+1}+'&pageSize=4'">下一页</a>
+            <a th:href="@{/manager/book_page}+'?pageNo='+${page.pageTotal}+'&pageSize=4'">末页</a>
+        </span>
+        共<span th:text="${page.pageTotal}"></span>页，<span th:text="${page.pageTotalCount}"></span>条记录 到第<input th:value="${page.pageNo}" name="pn" id="pn_input"/>页
+        <input type="button" id="searchPageBtn" value="确定">
+    </div>
+<!--</div>-->
+    <!--<div th:if="${page.pageTotal>5}">-->
+                <!--<div th:if="${page.pageNo<=3}">-->
+                    <!--<span th:if="${page.pageNo>1}">-->
+                        <!--<a  th:href="@{/manager/book_page}+'?pageNo=1&pageSize=4'">首页</a>-->
+                        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo-1}+'&pageSize=4'">上一页</a>-->
+                    <!--</span>-->
+                    <!--<span th:each="pageNo:${#numbers.sequence(1,5)}">-->
+                        <!--<a th:if="${pageNo}!=${page.pageNo}" th:text="${pageNo}" th:href="@{/manager/book_page}+'?pageNo='+${pageNo}+'&pageSize=4'"></a>-->
+                        <!--<span th:if="${pageNo}==${page.pageNo}" th:text="${pageNo}"></span>-->
+                    <!--</span>-->
+                <!--</div>-->
+                <!--<div th:if="${page.pageNo}>${page.pageTotal-3}">-->
+                    <!--<span th:if="${page.pageNo>1}">-->
+                        <!--<a  th:href="@{/manager/book_page}+'?pageNo=1&pageSize=4'">首页</a>-->
+                        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo-1}+'&pageSize=4'">上一页</a>-->
+                    <!--</span>-->
+                    <!--<span th:each="pageNo:${#numbers.sequence(page.pageTotal-3,page.pageTotal)}">-->
+                        <!--<a th:if="${pageNo}!=${page.pageNo}" th:text="${pageNo}" th:href="@{/manager/book_page}+'?pageNo='+${pageNo}+'&pageSize=4'"></a>-->
+                        <!--<span th:if="${pageNo}==${page.pageNo}" th:text="${pageNo}"></span>-->
+                    <!--</span>-->
+                <!--</div>-->
+                <!--<div th:if="${page.pageNo<=3}">-->
+                    <!--<span th:if="${page.pageNo>1}">-->
+                        <!--<a  th:href="@{/manager/book_page}+'?pageNo=1&pageSize=4'">首页</a>-->
+                        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo-1}+'&pageSize=4'">上一页</a>-->
+                    <!--</span>-->
+                    <!--<span th:each="pageNo:${#numbers.sequence(1,5)}">-->
+                        <!--<a th:if="${pageNo}!=${page.pageNo}" th:text="${pageNo}" th:href="@{/manager/book_page}+'?pageNo='+${pageNo}+'&pageSize=4'"></a>-->
+                        <!--<span th:if="${pageNo}==${page.pageNo}" th:text="${pageNo}"></span>-->
+                    <!--</span>-->
+                <!--</div>-->
+    <!--<span th:if="${page.pageNo}<${page.pageTotal}">-->
+        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo+1}+'&pageSize=4'">下一页</a>-->
+        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageTotal}+'&pageSize=4'">末页</a>-->
+    <!--</span>-->
+    <!--共页，条记录 到第<input th:value="${page.pageNo}" name="pn" id="pn_input"/>页-->
+    <!--<input type="button" id="searchPageBtn" value="确定">-->
+    <div  id="page_nav" th:fragment="page_index">
+        <div th:if="${page.pageTotal<=5}">
+        <span th:if="${page.pageNo>1}">
+            <a  th:href="@{${page.url}}+'pageNo=1&pageSize=4'">首页</a>
+            <a th:href="@{${page.url}}+'pageNo='+${page.pageNo-1}+'&pageSize=4'">上一页</a>
+        </span>
+            <span th:each="pageNo:${#numbers.sequence(1,page.pageTotal)}">
+            <a th:if="${pageNo}!=${page.pageNo}" th:text="${pageNo}" th:href="@{${page.url}}+'pageNo='+${pageNo}+'&pageSize=4'"></a>
+            <span th:if="${pageNo}==${page.pageNo}" th:text="${pageNo}"></span>
+        </span>
+            <span th:if="${page.pageNo}<${page.pageTotal}">
+            <a th:href="@{${page.url}}+'pageNo='+${page.pageNo+1}+'&pageSize=4'">下一页</a>
+            <a th:href="@{${page.url}}+'pageNo='+${page.pageTotal}+'&pageSize=4'">末页</a>
+        </span>
+            共<span th:text="${page.pageTotal}"></span>页，<span th:text="${page.pageTotalCount}"></span>条记录 到第<input th:value="${page.pageNo}" name="pn" id="pn_input"/>页
+            <input type="button" id="searchPageBtn" value="确定">
+        </div>
+        <!--</div>-->
+        <!--<div th:if="${page.pageTotal>5}">-->
+        <!--<div th:if="${page.pageNo<=3}">-->
+        <!--<span th:if="${page.pageNo>1}">-->
+        <!--<a  th:href="@{/manager/book_page}+'?pageNo=1&pageSize=4'">首页</a>-->
+        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo-1}+'&pageSize=4'">上一页</a>-->
+        <!--</span>-->
+        <!--<span th:each="pageNo:${#numbers.sequence(1,5)}">-->
+        <!--<a th:if="${pageNo}!=${page.pageNo}" th:text="${pageNo}" th:href="@{/manager/book_page}+'?pageNo='+${pageNo}+'&pageSize=4'"></a>-->
+        <!--<span th:if="${pageNo}==${page.pageNo}" th:text="${pageNo}"></span>-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--<div th:if="${page.pageNo}>${page.pageTotal-3}">-->
+        <!--<span th:if="${page.pageNo>1}">-->
+        <!--<a  th:href="@{/manager/book_page}+'?pageNo=1&pageSize=4'">首页</a>-->
+        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo-1}+'&pageSize=4'">上一页</a>-->
+        <!--</span>-->
+        <!--<span th:each="pageNo:${#numbers.sequence(page.pageTotal-3,page.pageTotal)}">-->
+        <!--<a th:if="${pageNo}!=${page.pageNo}" th:text="${pageNo}" th:href="@{/manager/book_page}+'?pageNo='+${pageNo}+'&pageSize=4'"></a>-->
+        <!--<span th:if="${pageNo}==${page.pageNo}" th:text="${pageNo}"></span>-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--<div th:if="${page.pageNo<=3}">-->
+        <!--<span th:if="${page.pageNo>1}">-->
+        <!--<a  th:href="@{/manager/book_page}+'?pageNo=1&pageSize=4'">首页</a>-->
+        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo-1}+'&pageSize=4'">上一页</a>-->
+        <!--</span>-->
+        <!--<span th:each="pageNo:${#numbers.sequence(1,5)}">-->
+        <!--<a th:if="${pageNo}!=${page.pageNo}" th:text="${pageNo}" th:href="@{/manager/book_page}+'?pageNo='+${pageNo}+'&pageSize=4'"></a>-->
+        <!--<span th:if="${pageNo}==${page.pageNo}" th:text="${pageNo}"></span>-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--<span th:if="${page.pageNo}<${page.pageTotal}">-->
+        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageNo+1}+'&pageSize=4'">下一页</a>-->
+        <!--<a th:href="@{/manager/book_page}+'?pageNo='+${page.pageTotal}+'&pageSize=4'">末页</a>-->
+        <!--</span>-->
+        <!--共<span th:text="${page.pageTotal}"></span>页，<span th:text="${page.pageTotalCount}"></span>条记录 到第<input th:value="${page.pageNo}" name="pn" id="pn_input"/>页-->
+        <!--<input type="button" id="searchPageBtn" value="确定">-->
+</div>
+</body>
+</html>

@@ -57,4 +57,24 @@ public class BookServiceImpl implements BookService {
         page.setItems(items);
         return page;
     }
+    @Override
+    public Page<Book>pageByPrice(int pageNo, int pageSize,int min,int max) {
+        Page<Book> page=new Page<>();
+        //设置每页记录数
+        page.setPageSize(pageSize);
+        //计算和设置总记录数
+        Integer pageTotalCount=bookMapper.queryForPageTotalCountByPrice(min,max);
+        page.setPageTotalCount(pageTotalCount);
+        //设置总页数
+        Integer pageTotal=pageTotalCount%pageSize==0?pageTotalCount/pageSize:(pageTotalCount/pageSize+1);
+        page.setPageTotal(pageTotal);
+        //设置当前页码
+        page.setPageNo(pageNo);
+        //设置当前页的开始
+        int begin=(page.getPageNo()-1)*pageSize;
+        //计算和设置当前页数据
+        List<Book> items=bookMapper.queryForPageItemsByPrice(min,max,begin,pageSize);
+        page.setItems(items);
+        return page;
+    }
 }

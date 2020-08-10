@@ -36,4 +36,10 @@
     <select id="queryForPageItems" resultType="com.chengfei.book.pojo.Book">
         SELECT id,name,author,price,sales,stock,img_path FROM t_book LIMIT #{begin},#{pageSize}
     </select>
+    <select id="queryForPageTotalCountByPrice" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM t_book WHERE price BETWEEN #{min} AND #{max}
+    </select>
+    <select id="queryForPageItemsByPrice" resultType="com.chengfei.book.pojo.Book">
+        SELECT id,name,author,price,sales,stock,img_path FROM t_book WHERE price BETWEEN #{min} AND #{max} LIMIT #{begin},#{pageSize}
+    </select>
 </mapper>

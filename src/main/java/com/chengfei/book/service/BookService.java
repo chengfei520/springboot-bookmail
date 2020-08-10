@@ -13,4 +13,6 @@ public interface BookService {
     public void saveBook(Book book);
 
     Page<Book> page(Integer pageNo, Integer pageSize);
+
+    Page<Book>pageByPrice(int pageNo, int pageSize, int min, int max);
 }
