@@ -37,6 +37,28 @@
 					location.href =getRootPath()+url+"pageNo=" + pageNo+"&pageSize=4";
 				}
 			})
+            $("#addItem").click(function () {
+                var bookId=$(this).attr("bookId");
+                $.ajax({
+                    type : "get",
+                    url : "http://localhost:8080/bookmail/client/addItem",
+                    headers : {
+                        'Content-Type' : 'application/x-www-form-urlencoded;charset=UTF-8'
+                    },
+                    dataType : "json",
+                    data :{
+                        "id" : bookId
+                    },
+                    success : function(result){
+                        if(result.lastName!=null) {
+                            $("#lastCartItem").text(result.lastName);
+                            $("#cartTotalCount").text(result.cartTotalCount);
+                        }else {
+                            $("#lastCartItem").text("");
+                        }
+                    }
+                });
+            })
 		});
 	</script>
 </head>
@@ -64,14 +86,16 @@
 				</form>
 			</div>
 			<div style="text-align: center">
-				<span>您的购物车中有 件商品</span>
+				<span>您的购物车中有<span id="cartTotalCount"></span>件商品</span>
 				<div>
-					您刚刚将<span style="color: red"></span>加入到了购物车中
+					您刚刚将<span style="color: red" id="lastCartItem"></span>加入到了购物车中
 				</div>
 			</div>
 			<input id="pageTotal" type="hidden" th:value="${page.pageTotal}">
 			<input id="url" type="hidden" th:value="${page.url}">
-			<div th:each="book:${page.items}" class="b_list">
+
+            <div th:each="book:${page.items}">
+			<div class="b_list">
 				<div class="img_div">
 					<img class="book_img" alt="" th:src="@{${book.imgPath}}" />
 				</div>
@@ -97,10 +121,11 @@
 						<span class="sp2" th:text="${book.stock}">1000</span>
 					</div>
 					<div class="book_add">
-						<button>加入购物车</button>
+						<button th:bookId="${book.id}" id="addItem">加入购物车</button>
 					</div>
 				</div>
 			</div>
+            </div>
 		</div>
 	</div>
 	<div th:replace="commons/page_number::page_index"></div>
