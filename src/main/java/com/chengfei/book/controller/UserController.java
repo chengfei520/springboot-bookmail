@@ -35,6 +35,7 @@ public class UserController {
             return "forward:/login.html";
         }else {
             session.setAttribute("loginUser", username);
+            session.setAttribute("user",user);
             //重定向防止重复提交
             return "redirect:/login_success.html";
         }
