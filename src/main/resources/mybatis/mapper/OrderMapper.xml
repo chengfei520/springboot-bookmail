@@ -6,4 +6,19 @@
 <insert id="saveOrder">
 INSERT INTO t_order(order_id,create_time,price,status,user_id) values (#{orderId},#{createTime},#{price},#{status},#{userId})
 </insert>
+    <select id="queryOrders" resultType="com.chengfei.book.pojo.Order">
+        SELECT order_id,create_time,price,status,user_id FROM t_order
+    </select>
+    <select id="queryItemsByOrderId" resultType="com.chengfei.book.pojo.OrderItem">
+        SELECT id,name,count,price,total_price,order_id FROM t_order_item WHERE order_id=#{orderId}
+    </select>
+    <update id="changeOrderStatus">
+        UPDATE t_order SET status=1 WHERE order_id=#{orderId}
+    </update>
+    <select id="queryOrderByUserId" resultType="com.chengfei.book.pojo.Order">
+        SELECT order_id,create_time,price,status,user_id FROM t_order WHERE user_id=#{userId}
+    </select>
+    <update id="changeOrderStatusToReceived">
+        UPDATE t_order SET status=2 WHERE order_id=#{orderId}
+    </update>
 </mapper>

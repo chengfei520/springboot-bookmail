@@ -68,16 +68,15 @@
 			<img class="logo_img" alt="" style="height:100px;width:100px " th:src="@{/img/musicLogo.jpg}" >
 			<span class="wel_word">网上商城</span>
 			<div th:if="${#strings.isEmpty(session.loginUser)}">
-				<a th:href="@{/login.html}">登录</a> |
-				<a th:href="@{/regist.html}">注册</a> &nbsp;&nbsp;
-				<a th:href="@{/cart.html}">购物车</a>
-				<a th:href="@{manager.html}">后台管理</a>
+				<a th:href="@{/login.html}">登录</a>
+				<a th:href="@{/regist.html}">注册</a>
 			</div>
 		<div th:if="${not #strings.isEmpty(session.loginUser)}">
 			<span>欢迎<span class="um_span">[[${session.loginUser}]]</span></span>
-			<a th:href="@{/cart.html}">购物车</a>
+			<a th:href="@{/client/showItems}">购物车</a>
+			<a th:href="@{/myOrders}+'?userId='+${session.user.id}">我的订单</a>
 			<a th:href="@{manager.html}">后台管理</a>
-			<a th:href="@{/login.html}">注销</a>&nbsp;&nbsp;
+			<a th:href="@{/login.html}">注销</a>
 		</div>
 	</div>
 	<div id="main">

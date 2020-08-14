@@ -21,29 +21,20 @@
 			<tr>
 				<td>日期</td>
 				<td>金额</td>
-				<td>状态</td>
 				<td>详情</td>
+				<td>状态</td>
 			</tr>		
-			<tr>
-				<td>2015.04.23</td>
-				<td>90.00</td>
-				<td>未发货</td>
-				<td><a href="#">查看详情</a></td>
-			</tr>	
-			
-			<tr>
-				<td>2015.04.20</td>
-				<td>20.00</td>
-				<td>已发货</td>
-				<td><a href="#">查看详情</a></td>
-			</tr>	
-			
-			<tr>
-				<td>2014.01.23</td>
-				<td>190.00</td>
-				<td>已完成</td>
-				<td><a href="#">查看详情</a></td>
-			</tr>		
+			<tr th:each="order:${orders}">
+				<td th:text="${#dates.format(order.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+				<td th:text="${order.price}"></td>
+				<td><a th:href="@{/showOrderDetails}+'?orderId='+${order.orderId}">查看详情</a></td>
+				<td  th:if="${order.status==0}" th:text="未发货"></td>
+				<div th:if="${order.status==1}">
+					<td th:text="已发货"></td>
+					<td><a th:href="@{/receiveOrder}+'?orderId='+${order.orderId}">点击签收</a></td>
+				</div>
+				<td th:if="${order.status==2}" th:text="已签收"></td>
+			</tr>
 		</table>
 		
 	

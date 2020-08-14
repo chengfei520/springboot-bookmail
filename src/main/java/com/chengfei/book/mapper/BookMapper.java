@@ -18,4 +18,6 @@ public interface BookMapper {
     public List<Book> queryForPageItems(Integer begin, Integer pageSize);
     public Integer queryForPageTotalCountByPrice(int min,int max);
     public List<Book> queryForPageItemsByPrice(int min,int max,int begin, int pageSize);
+
+
 }

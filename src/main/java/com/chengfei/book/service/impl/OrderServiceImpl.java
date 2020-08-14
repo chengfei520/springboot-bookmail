@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -41,5 +42,32 @@ public class OrderServiceImpl implements OrderService {
         //清空购物车
         cart.clear();
         return orderId;
+    }
+
+    @Override
+    public List<Order> showAllOrders() {
+        return orderMapper.queryOrders();
+    }
+
+    @Override
+    public List<OrderItem> showOrderDetails(String orderId) {
+        List<OrderItem> orderItems=orderMapper.queryItemsByOrderId(orderId);
+        return orderItems;
+    }
+
+    @Override
+    public void sendOrder(String orderId) {
+        orderMapper.changeOrderStatus(orderId);
+    }
+
+    @Override
+    public List<Order> showMyOrders(Integer userId) {
+        List<Order> orders=orderMapper.queryOrderByUserId(userId);
+        return orders;
+    }
+
+    @Override
+    public void receiveOrder(String orderId) {
+        orderMapper.changeOrderStatusToReceived(orderId);
     }
 }

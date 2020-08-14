@@ -19,6 +19,15 @@ import java.util.Map;
 public class CartController {
     @Autowired
     BookService bookService;
+    @GetMapping("/client/showItems")
+    public String showItems(HttpSession session){
+        Cart cart = (Cart) session.getAttribute("cart");
+        if(cart==null){
+            session.setAttribute("cart",new Cart());
+            return "redirect:/cart.html";
+        }
+        return "redirect:/cart.html";
+    }
     @PostMapping("/client/addItem")
     @ResponseBody
     public Map<String,Object> addCartItem(@RequestParam("id") Integer id, HttpSession session){

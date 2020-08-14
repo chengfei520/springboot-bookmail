@@ -25,7 +25,7 @@ div{
 #main {
 	height: 460px;
 	width: 1200px;
-	border: 1px black solid;
+	border: 15px cadetblue solid;
 	overflow: auto;
 }
 
@@ -44,12 +44,12 @@ div{
 
 .b_list{
 	height:300px;
-	width:250px;
+	width:230px;
 	margin: 20px;
 	float: left;
 	margin-top:0px;
 	margin-bottom:0px;
-	border: 1px #e3e3e3 solid;
+	border: 10px #e3e3e3 solid;
 }
 
 #page_nav{
@@ -124,7 +124,7 @@ div{
 
 .login_banner{
 	height:475px;
-	background-color: #39987c;
+	background-color: cadetblue;
 }
 
 .login_form{
@@ -187,7 +187,7 @@ h1 {
 }
 
 #sub_btn{
-	background-color: #39987c;
+	background-color: cadetblue;
 	border: none;
 	color: #fff;
 	width: 360px;

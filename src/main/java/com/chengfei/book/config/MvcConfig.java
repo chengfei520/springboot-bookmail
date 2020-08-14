@@ -26,11 +26,12 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/cart.html").setViewName("cart/cart");
         registry.addViewController("/order.html").setViewName("order/order");
         registry.addViewController("/checkout.html").setViewName("cart/checkout");
-
-
+        registry.addViewController("/order_manager.html").setViewName("manager/order_manager");
+        registry.addViewController("/order_detail.html").setViewName("order/order_detail");
+        registry.addViewController("/send_order.html").setViewName("order/send_order");
+        registry.addViewController("/receive_order.html").setViewName("order/receive_order");
     }
-
-    /**
+        /**
      * 验证码组件注册到容器
      * @return
      */

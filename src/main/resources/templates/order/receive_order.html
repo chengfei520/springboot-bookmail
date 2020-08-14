@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>发货完成</title>
+    <div th:replace="commons/top::top"></div>
+    <style type="text/css">
+        h1 {
+            text-align: center;
+            margin-top: 200px;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <h1>订单号为<span th:text="${orderId}"></span>的订单已签收！</h1>
+    <a style="font-size: medium;align-content: center" th:href="@{/myOrders}+'?userId='+${session.user.id}">返回您的订单页面</a>
+</div>
+
+<div th:replace="commons/footer::bottom"></div>
+</body>
+</html>

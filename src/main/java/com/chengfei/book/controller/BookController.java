@@ -73,7 +73,7 @@ public class BookController {
                              @RequestParam("sales") Integer sales,
                              @RequestParam("stock") Integer stock){
         bookService.alterBook(new Book(id,name,author,price,sales,stock,null));
-        return "redirect:/manager/book_manager";
+        return "redirect:/manager/book_page?pageNo=1&pageSize=4";
     }
 
     /**
